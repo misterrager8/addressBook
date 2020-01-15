@@ -13,11 +13,11 @@ class mainWindow(JFrame):
   def initComponents(self):
     self.bgPanel = JPanel()
     self.exitButton = JLabel(mouseClicked = self.exitButtonMouseClicked)
-    self.fnameField = JTextField()
-    self.lnameField = JTextField()
-    self.emailsField = JTextField()
-    self.numsField = JTextField()
-    self.dobField = JFormattedTextField()
+    self.fnameField = JTextField(focusGained = self.fnameFieldFocusGained)
+    self.lnameField = JTextField(focusGained = self.lnameFieldFocusGained)
+    self.emailsField = JTextField(focusGained = self.emailsFieldFocusGained)
+    self.numsField = JTextField(focusGained = self.numsFieldFocusGained)
+    self.dobField = JFormattedTextField(focusGained = self.dobFieldFocusGained)
     self.fnameLabel = JLabel()
     self.lnameLabel = JLabel()
     self.dobLabel = JLabel()
@@ -144,6 +144,21 @@ class mainWindow(JFrame):
     
   def exitButtonMouseClicked(self, evt):
     sys.exit()
+    
+  def fnameFieldFocusGained(self, evt):
+    self.fnameField.selectAll()
+    
+  def lnameFieldFocusGained(self, evt):
+    self.lnameField.selectAll()
+    
+  def emailsFieldFocusGained(self, evt):
+    self.emailsField.selectAll()
+    
+  def numsFieldFocusGained(self, evt):
+    self.numsField.selectAll()
+    
+  def dobFieldFocusGained(self, evt):
+    self.dobField.selectAll()
   
 if __name__ == "__main__":
   mainWindow().setVisible(True)
