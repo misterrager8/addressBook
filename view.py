@@ -23,10 +23,12 @@ class mainWindow(JFrame):
     self.dobLabel = JLabel()
     self.emailsLabel = JLabel()
     self.phoneLabel = JLabel()
-    self.addButton = JLabel()
+    self.addButton = JLabel(mouseEntered = self.addButtonMouseEntered,
+                            mouseExited = self.addButtonMouseExited)
     self.jScrollPane2 = JScrollPane()
     self.peopleTable = JTable()
-    self.delButton = JLabel()
+    self.delButton = JLabel(mouseEntered = self.delButtonMouseEntered,
+                            mouseExited = self.delButtonMouseExited)
 
     self.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
     self.setUndecorated(True)
@@ -159,6 +161,18 @@ class mainWindow(JFrame):
     
   def dobFieldFocusGained(self, evt):
     self.dobField.selectAll()
+    
+  def addButtonMouseEntered(self, evt):
+    self.addButton.setBorder(border.LineBorder(Color.BLACK))
+    
+  def addButtonMouseExited(self, evt):
+    self.addButton.setBorder(None)
+    
+  def delButtonMouseEntered(self, evt):
+    self.delButton.setBorder(border.LineBorder(Color.BLACK))
+    
+  def delButtonMouseExited(self, evt):
+    self.delButton.setBorder(None)
   
 if __name__ == "__main__":
   mainWindow().setVisible(True)
