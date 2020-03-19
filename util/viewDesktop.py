@@ -2,16 +2,17 @@ from javax.swing import *
 from java.awt import *
 from java.text import *
 import sys
-import subprocess
+
+mouseLoc = []
 
 class mainWindow(JFrame):
   def __init__(self):
     super(mainWindow, self).__init__()
     self.initComponents()
-    subprocess.call("python addressBook.py", shell = True)
     
   def initComponents(self):
-    self.bgPanel = JPanel()
+    self.bgPanel = JPanel(mousePressed = self.bgPanelMousePressed,
+                          mouseDragged = self.bgPanelMouseDragged)
     self.exitButton = JLabel(mouseClicked = self.exitButtonMouseClicked)
     self.fnameField = JTextField(focusGained = self.fnameFieldFocusGained)
     self.lnameField = JTextField(focusGained = self.lnameFieldFocusGained)
@@ -173,6 +174,17 @@ class mainWindow(JFrame):
     
   def delButtonMouseExited(self, evt):
     self.delButton.setBorder(None)
+    
+  def bgPanelMousePressed(self, evt):
+    del mouseLoc[:]
+    mouseLoc.append(evt.getX())
+    mouseLoc.append(evt.getY())
+    
+  def bgPanelMouseDragged(self, evt):
+    x = evt.getXOnScreen()
+    y = evt.getYOnScreen()
+    
+    self.setLocation(x - mouseLoc[0], y - mouseLoc[1])
   
 if __name__ == "__main__":
   mainWindow().setVisible(True)
