@@ -47,9 +47,9 @@ class mainWindow(JFrame):
 
     self.dobLabel.setText("Date of Birth (MM/DD/YYYY)")
 
-    self.emailsLabel.setText("E-mails (seperated by commas)")
+    self.emailsLabel.setText("E-mail")
 
-    self.phoneLabel.setText("Phone Numbers (seperated by commas)")
+    self.phoneLabel.setText("Phone Number")
 
     self.addButton.setBackground(Color(255, 255, 255))
     self.addButton.setHorizontalAlignment(SwingConstants.CENTER)

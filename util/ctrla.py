@@ -53,3 +53,21 @@ class ctrla():
       results.append(n)
       
     return results
+  
+  def editPerson(self, ID, editID, edit):
+    sql0 = "UPDATE people SET firstName = '%s' WHERE personId = '%d'" % (edit, ID)
+    sql1 = "UPDATE people SET lastName = '%s' WHERE personId = '%d'" % (edit, ID)
+    sql2 = "UPDATE people SET dob = '%s' WHERE personId = '%d'" % (edit, ID)
+    sql3 = "UPDATE people SET emails = '%s' WHERE personId = '%d'" % (edit, ID)
+    sql4 = "UPDATE people SET telNumbers = '%s' WHERE personId = '%d'" % (edit, ID)
+    
+    if editID == 0:
+      self.runQuery(sql0)
+    elif editID == 1:
+      self.runQuery(sql1)
+    elif editID == 2:
+      self.runQuery(sql2)
+    elif editID == 3:
+      self.runQuery(sql3)
+    elif editID == 4:
+      self.runQuery(sql4)

@@ -3,6 +3,7 @@ from ctrla import *
 from model import *
 
 options = ["View All","Add","Delete","Edit","Search","Import","Export","Exit"]
+attribs = ["First Name", "Last Name", "Date of Birth", "Email", "Number"]
 ac = ctrla()
 
 class mainMenu():
@@ -27,7 +28,11 @@ class mainMenu():
         whichOne = input("Which one? ")
         ac.deletePerson(whichOne)
       elif options[userChoice] == "Edit":
-        print("temp4")
+        whichOne = input("Which one? ")
+        self.listOptions(attribs)
+        editType = input("Edit Type? ")
+        edit = raw_input("Enter change: ")
+        ac.editPerson(whichOne, editType, edit)
       elif options[userChoice] == "Search":
         print("temp5")
       elif options[userChoice] == "Import":
