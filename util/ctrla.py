@@ -71,3 +71,31 @@ class ctrla():
       self.runQuery(sql3)
     elif editID == 4:
       self.runQuery(sql4)
+      
+    def searchPerson(self, searchID, searchTerm):
+      peopleList = []
+      b = {}
+      sql0 = "SELECT * FROM albums WHERE firstName LIKE %s"
+      sql1 = "SELECT * FROM albums WHERE lastName LIKE %s"
+      sql2 = "SELECT * FROM albums WHERE dob LIKE %s"
+      sql3 = "SELECT * FROM albums WHERE emails LIKE %s"
+      sql4 = "SELECT * FROM albums WHERE telNumbers LIKE %s"
+
+      if int(searchID) == 0:
+        b = self.runSearchQuery(sql0, searchTerm)
+      elif int(searchID) == 1:
+        b = self.runSearchQuery(sql1, searchTerm)
+      elif int(searchID) == 2:
+        b = self.runSearchQuery(sql2, searchTerm)
+      elif int(searchID) == 3:
+        b = self.runSearchQuery(sql3, searchTerm)
+
+      for row in b:
+        x = person(row[0],
+                  row[1],
+                  row[2],
+                  row[3],
+                  row[4]
+        peopleList.append(x)
+
+      return peopleList
