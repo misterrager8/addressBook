@@ -41,7 +41,7 @@ class mainMenu():
         for i in ac.searchPerson(searchID, searchTerm):
           i.toString()
       elif options[userChoice] == "Import":
-        print("temp6")
+        ac.importPeople()
       elif options[userChoice] == "Export":
         print("temp7")
       elif options[userChoice] == "Exit":

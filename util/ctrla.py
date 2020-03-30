@@ -1,5 +1,6 @@
 from model import *
 import MySQLdb
+import csv
 
 class ctrla():
   def __init__(self):
@@ -100,3 +101,19 @@ class ctrla():
       peopleList.append(x)
 
     return peopleList
+  
+  def importPeople(self):
+    imported = []
+    csv_data = csv.reader(file("input.csv"))
+    for row in csv_data:
+      qPerson = person(None, row[0], row[1], row[2], row[3], row[4])
+      imported.append(qPerson)
+      
+    print(str(len(imported)) + " person(s) found.")
+    for item in imported:
+      item.toString()
+      
+    answer = raw_input("Add these people? ")
+    if answer == "Y" or answer == "y":
+      for item in imported:
+        self.addPerson(item)
