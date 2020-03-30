@@ -92,12 +92,7 @@ class ctrla():
       b = self.runSearchQuery(sql3, searchTerm)
 
     for row in b:
-      x = person(row[0],
-                 row[1],
-                 row[2],
-                 row[3],
-                 row[4],
-                 row[5])
+      x = person(row[0], row[1], row[2], row[3], row[4], row[5])
       peopleList.append(x)
 
     return peopleList
@@ -117,3 +112,12 @@ class ctrla():
     if answer == "Y" or answer == "y":
       for item in imported:
         self.addPerson(item)
+        
+  def exportPeople(self):
+    sql = "SELECT * FROM people"
+    results = self.runReadQuery(sql)
+
+    with open("output.csv", "w") as f:
+      a = csv.writer(f, delimiter = ",")
+      a.writerow(["Person ID", "First Name", "Last Name", "DOB", "Email", "Number"])
+      a.writerows(results)

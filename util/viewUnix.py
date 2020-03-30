@@ -9,7 +9,6 @@ ac = ctrla()
 class mainMenu():
   def __init__(self):
     while True:
-      self.printPeople()
       self.listOptions(options)
       userChoice = input("What would you like to do? ")
       
@@ -37,13 +36,15 @@ class mainMenu():
         self.listOptions(attribs)
         searchID = input("Search By? ")
         searchTerm = raw_input("Search term? ")
+        searchResults = ac.searchPerson(searchID, searchTerm)
         
-        for i in ac.searchPerson(searchID, searchTerm):
+        print(str(len(searchResults)) + " record(s) found.")
+        for i in searchResults:
           i.toString()
       elif options[userChoice] == "Import":
         ac.importPeople()
       elif options[userChoice] == "Export":
-        print("temp7")
+        ac.exportPeople()
       elif options[userChoice] == "Exit":
         sys.exit()
     
