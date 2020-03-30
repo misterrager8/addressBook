@@ -34,7 +34,12 @@ class mainMenu():
         edit = raw_input("Enter change: ")
         ac.editPerson(whichOne, editType, edit)
       elif options[userChoice] == "Search":
-        print("temp5")
+        self.listOptions(attribs)
+        searchID = input("Search By? ")
+        searchTerm = raw_input("Search term? ")
+        
+        for i in ac.searchPerson(searchID, searchTerm):
+          i.toString()
       elif options[userChoice] == "Import":
         print("temp6")
       elif options[userChoice] == "Export":
