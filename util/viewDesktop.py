@@ -7,79 +7,80 @@ from javax.swing.table import *
 
 from model import *
 
-mouseLoc = []
+mouse_loc = []
 
 
-class tableModelWrapper(DefaultTableModel):
+class Tablemodelwrapper(DefaultTableModel):
     def __init__(self):
         pass
 
 
-class mainWindow(JFrame):
+class Mainwindow(JFrame):
     def __init__(self):
-        super(mainWindow, self).__init__()
-        self.initComponents()
+        super(Mainwindow, self).__init__()
 
-    def initComponents(self):
         self.bgPanel = JPanel(mousePressed=self.bgPanelMousePressed,
                               mouseDragged=self.bgPanelMouseDragged)
-        self.exitButton = JLabel(mouseClicked=self.exitButtonMouseClicked)
-        self.fnameField = JTextField(focusGained=self.fnameFieldFocusGained)
-        self.lnameField = JTextField(focusGained=self.lnameFieldFocusGained)
-        self.emailsField = JTextField(focusGained=self.emailsFieldFocusGained)
-        self.numsField = JTextField(focusGained=self.numsFieldFocusGained)
-        self.dobField = JFormattedTextField(focusGained=self.dobFieldFocusGained)
-        self.fnameLabel = JLabel()
-        self.lnameLabel = JLabel()
-        self.dobLabel = JLabel()
-        self.emailsLabel = JLabel()
-        self.phoneLabel = JLabel()
-        self.addButton = JLabel(mouseEntered=self.addButtonMouseEntered,
-                                mouseExited=self.addButtonMouseExited,
-                                mouseClicked=self.addButtonMouseClicked)
-        self.jScrollPane2 = JScrollPane()
-        self.peopleTable = JTable()
-        self.delButton = JLabel(mouseEntered=self.delButtonMouseEntered,
-                                mouseExited=self.delButtonMouseExited,
-                                mouseClicked=self.delButtonMouseClicked)
+        self.exit_button = JLabel(mouseClicked=self.exitButtonMouseClicked)
+        self.fname_field = JTextField(focusGained=self.fnameFieldFocusGained)
+        self.lname_field = JTextField(focusGained=self.lnameFieldFocusGained)
+        self.emails_field = JTextField(focusGained=self.emailsFieldFocusGained)
+        self.nums_field = JTextField(focusGained=self.numsFieldFocusGained)
+        self.dob_field = JFormattedTextField(focusGained=self.dobFieldFocusGained)
+        self.fname_label = JLabel()
+        self.lname_label = JLabel()
+        self.dob_label = JLabel()
+        self.emails_label = JLabel()
+        self.phone_label = JLabel()
+        self.add_button = JLabel(mouseEntered=self.addButtonMouseEntered,
+                                 mouseExited=self.addButtonMouseExited,
+                                 mouseClicked=self.addButtonMouseClicked)
+        self.j_scroll_pane2 = JScrollPane()
+        self.people_table = JTable()
+        self.del_button = JLabel(mouseEntered=self.delButtonMouseEntered,
+                                 mouseExited=self.delButtonMouseExited,
+                                 mouseClicked=self.delButtonMouseClicked)
+        self.init_components()
+        self.setVisible(True)
 
+    def init_components(self):
         self.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
         self.setUndecorated(True)
 
         self.bgPanel.setBackground(Color(255, 153, 0))
 
-        self.exitButton.setText("X")
-        self.exitButton.setCursor(Cursor(Cursor.HAND_CURSOR))
+        self.exit_button.setText("X")
+        self.exit_button.setCursor(Cursor(Cursor.HAND_CURSOR))
 
-        self.dobField.setFormatterFactory(
+        self.dob_field.setFormatterFactory(
             text.DefaultFormatterFactory(text.DateFormatter(SimpleDateFormat("MM/dd/yyyy"))))
 
-        self.fnameLabel.setText("First Name")
+        self.fname_label.setText("First Name")
 
-        self.lnameLabel.setText("Last Name")
+        self.lname_label.setText("Last Name")
 
-        self.dobLabel.setText("Date of Birth (MM/DD/YYYY)")
+        self.dob_label.setText("Date of Birth (MM/DD/YYYY)")
 
-        self.emailsLabel.setText("E-mail")
+        self.emails_label.setText("E-mail")
 
-        self.phoneLabel.setText("Phone Number")
+        self.phone_label.setText("Phone Number")
 
-        self.addButton.setBackground(Color(255, 255, 255))
-        self.addButton.setHorizontalAlignment(SwingConstants.CENTER)
-        self.addButton.setText("Add Person")
-        self.addButton.setCursor(Cursor(Cursor.HAND_CURSOR))
-        self.addButton.setOpaque(True)
+        self.add_button.setBackground(Color(255, 255, 255))
+        self.add_button.setHorizontalAlignment(SwingConstants.CENTER)
+        self.add_button.setText("Add Person")
+        self.add_button.setCursor(Cursor(Cursor.HAND_CURSOR))
+        self.add_button.setOpaque(True)
 
-        self.peopleTable.setModel(table.DefaultTableModel(
+        self.people_table.setModel(table.DefaultTableModel(
             [],
             ["ID", "First Name", "Last Name", "Date of Birth", "E-mail(s)", "Phone Num(s)"]))
-        self.jScrollPane2.setViewportView(self.peopleTable)
+        self.j_scroll_pane2.setViewportView(self.people_table)
 
-        self.delButton.setBackground(Color(255, 102, 102))
-        self.delButton.setHorizontalAlignment(SwingConstants.CENTER)
-        self.delButton.setText("Delete Person")
-        self.delButton.setCursor(Cursor(Cursor.HAND_CURSOR))
-        self.delButton.setOpaque(True)
+        self.del_button.setBackground(Color(255, 102, 102))
+        self.del_button.setHorizontalAlignment(SwingConstants.CENTER)
+        self.del_button.setText("Delete Person")
+        self.del_button.setCursor(Cursor(Cursor.HAND_CURSOR))
+        self.del_button.setOpaque(True)
 
         bgPanelLayout = GroupLayout(self.bgPanel)
         self.bgPanel.setLayout(bgPanelLayout)
@@ -90,28 +91,28 @@ class mainWindow(JFrame):
                           .addGroup(bgPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                     .addGroup(GroupLayout.Alignment.TRAILING, bgPanelLayout.createSequentialGroup()
                                               .addGap(0, 0, sys.maxint)
-                                              .addComponent(self.exitButton))
+                                              .addComponent(self.exit_button))
                                     .addGroup(bgPanelLayout.createSequentialGroup()
                                               .addGroup(
                 bgPanelLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                .addComponent(self.fnameLabel)
-                .addComponent(self.lnameLabel)
-                .addComponent(self.dobLabel)
-                .addComponent(self.emailsLabel)
-                .addComponent(self.phoneLabel))
+                    .addComponent(self.fname_label)
+                    .addComponent(self.lname_label)
+                    .addComponent(self.dob_label)
+                    .addComponent(self.emails_label)
+                    .addComponent(self.phone_label))
                                               .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                               .addGroup(
                 bgPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING, False)
-                .addComponent(self.addButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, sys.maxint)
-                .addComponent(self.lnameField)
-                .addComponent(self.fnameField)
-                .addComponent(self.emailsField)
-                .addComponent(self.numsField)
-                .addComponent(self.dobField)
-                .addComponent(self.delButton, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 285,
-                              sys.maxint))
+                    .addComponent(self.add_button, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, sys.maxint)
+                    .addComponent(self.lname_field)
+                    .addComponent(self.fname_field)
+                    .addComponent(self.emails_field)
+                    .addComponent(self.nums_field)
+                    .addComponent(self.dob_field)
+                    .addComponent(self.del_button, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 285,
+                                  sys.maxint))
                                               .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                              .addComponent(self.jScrollPane2, GroupLayout.DEFAULT_SIZE, 633,
+                                              .addComponent(self.j_scroll_pane2, GroupLayout.DEFAULT_SIZE, 633,
                                                             sys.maxint)))
                           .addContainerGap()))
 
@@ -119,47 +120,47 @@ class mainWindow(JFrame):
             bgPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                 .addGroup(bgPanelLayout.createSequentialGroup()
                           .addContainerGap()
-                          .addComponent(self.exitButton)
+                          .addComponent(self.exit_button)
                           .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                           .addGroup(bgPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                     .addGroup(bgPanelLayout.createSequentialGroup()
                                               .addGroup(
                 bgPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                .addComponent(self.fnameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-                              GroupLayout.PREFERRED_SIZE)
-                .addComponent(self.fnameLabel))
+                    .addComponent(self.fname_field, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                  GroupLayout.PREFERRED_SIZE)
+                    .addComponent(self.fname_label))
                                               .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                               .addGroup(
                 bgPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                .addComponent(self.lnameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-                              GroupLayout.PREFERRED_SIZE)
-                .addComponent(self.lnameLabel))
+                    .addComponent(self.lname_field, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                  GroupLayout.PREFERRED_SIZE)
+                    .addComponent(self.lname_label))
                                               .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                               .addGroup(
                 bgPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                .addComponent(self.dobField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-                              GroupLayout.PREFERRED_SIZE)
-                .addComponent(self.dobLabel))
+                    .addComponent(self.dob_field, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                  GroupLayout.PREFERRED_SIZE)
+                    .addComponent(self.dob_label))
                                               .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                               .addGroup(
                 bgPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                .addComponent(self.emailsField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-                              GroupLayout.PREFERRED_SIZE)
-                .addComponent(self.emailsLabel))
+                    .addComponent(self.emails_field, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                  GroupLayout.PREFERRED_SIZE)
+                    .addComponent(self.emails_label))
                                               .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                               .addGroup(
                 bgPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                .addComponent(self.numsField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-                              GroupLayout.PREFERRED_SIZE)
-                .addComponent(self.phoneLabel))
+                    .addComponent(self.nums_field, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                  GroupLayout.PREFERRED_SIZE)
+                    .addComponent(self.phone_label))
                                               .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                              .addComponent(self.addButton, GroupLayout.PREFERRED_SIZE, 47,
+                                              .addComponent(self.add_button, GroupLayout.PREFERRED_SIZE, 47,
                                                             GroupLayout.PREFERRED_SIZE)
                                               .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED,
                                                                GroupLayout.DEFAULT_SIZE, sys.maxint)
-                                              .addComponent(self.delButton, GroupLayout.PREFERRED_SIZE, 47,
+                                              .addComponent(self.del_button, GroupLayout.PREFERRED_SIZE, 47,
                                                             GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(self.jScrollPane2, GroupLayout.DEFAULT_SIZE, 512, sys.maxint))
+                                    .addComponent(self.j_scroll_pane2, GroupLayout.DEFAULT_SIZE, 512, sys.maxint))
                           .addContainerGap()))
 
         layout = GroupLayout(self.getContentPane())
@@ -179,56 +180,56 @@ class mainWindow(JFrame):
         sys.exit()
 
     def fnameFieldFocusGained(self, evt):
-        self.fnameField.selectAll()
+        self.fname_field.selectAll()
 
     def lnameFieldFocusGained(self, evt):
-        self.lnameField.selectAll()
+        self.lname_field.selectAll()
 
     def emailsFieldFocusGained(self, evt):
-        self.emailsField.selectAll()
+        self.emails_field.selectAll()
 
     def numsFieldFocusGained(self, evt):
-        self.numsField.selectAll()
+        self.nums_field.selectAll()
 
     def dobFieldFocusGained(self, evt):
-        self.dobField.selectAll()
+        self.dob_field.selectAll()
 
     def addButtonMouseEntered(self, evt):
-        self.addButton.setBorder(border.LineBorder(Color.BLACK))
+        self.add_button.setBorder(border.LineBorder(Color.BLACK))
 
     def addButtonMouseExited(self, evt):
-        self.addButton.setBorder(None)
+        self.add_button.setBorder(None)
 
     def delButtonMouseEntered(self, evt):
-        self.delButton.setBorder(border.LineBorder(Color.BLACK))
+        self.del_button.setBorder(border.LineBorder(Color.BLACK))
 
     def delButtonMouseExited(self, evt):
-        self.delButton.setBorder(None)
+        self.del_button.setBorder(None)
 
     def bgPanelMousePressed(self, evt):
-        del mouseLoc[:]
-        mouseLoc.append(evt.getX())
-        mouseLoc.append(evt.getY())
+        del mouse_loc[:]
+        mouse_loc.append(evt.getX())
+        mouse_loc.append(evt.getY())
 
     def bgPanelMouseDragged(self, evt):
         x = evt.getXOnScreen()
         y = evt.getYOnScreen()
 
-        self.setLocation(x - mouseLoc[0], y - mouseLoc[1])
+        self.setLocation(x - mouse_loc[0], y - mouse_loc[1])
 
     def addButtonMouseClicked(self, evt):
-        fName = self.fnameField.getText()
-        lName = self.lnameField.getText()
-        dob = self.dobField.getText()
-        email = self.emailsField.getText()
-        telNumber = self.numsField.getText()
+        f_name = self.fname_field.getText()
+        l_name = self.lname_field.getText()
+        dob = self.dob_field.getText()
+        email = self.emails_field.getText()
+        tel_number = self.nums_field.getText()
 
-        x = person(None, fName, lName, dob, email, telNumber)
-        x.toString()
+        x = Person(None, f_name, l_name, dob, email, tel_number)
+        x.to_string()
 
     def delButtonMouseClicked(self, evt):
         pass
 
 
 if __name__ == "__main__":
-    mainWindow().setVisible(True)
+    Mainwindow()
