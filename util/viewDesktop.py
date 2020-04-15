@@ -1,3 +1,5 @@
+import csv
+import subprocess
 import sys
 
 from java.awt import *
@@ -8,6 +10,7 @@ from javax.swing.table import *
 from model import *
 
 mouse_loc = []
+person_list = []
 
 
 class Tablemodelwrapper(DefaultTableModel):
@@ -225,10 +228,25 @@ class Mainwindow(JFrame):
         tel_number = self.nums_field.getText()
 
         x = Person(None, f_name, l_name, dob, email, tel_number)
-        x.to_string()
+        subprocess.call("python ctrla.py add", shell=True)
 
     def delButtonMouseClicked(self, evt):
         pass
+
+    def view_table(self):
+        with open("albumsList.csv", "r") as f:
+            reader = csv.reader(f)
+            temp_list = list(reader)
+
+        del person_list[:]
+
+        for item in temp_list:
+            person_list.append(Person(item[0], item[1], item[2], item[3], item[4], item[5], item[6]))
+
+        self.people_table.getModel().setRowCount(0)
+
+        for idx, item in enumerate(person_list):
+            self.people_table.getModel().addRow([item.person_id, item.fname, item.lname, item.dob, item.email, item.number])
 
 
 if __name__ == "__main__":
