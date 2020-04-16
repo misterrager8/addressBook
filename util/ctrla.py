@@ -1,4 +1,6 @@
 import csv
+import os
+import sys
 
 import MySQLdb
 
@@ -131,8 +133,29 @@ class Ctrla:
             a.writerow(["Person ID", "First Name", "Last Name", "DOB", "Email", "Number"])
             a.writerows(results)
 
-    def gui_add_person(self, x):
-        pass
+    def gui_view_people(self):
+        results = []
+        for submission in self.view_people():
+            results.append([submission.personID,
+                            submission.fname,
+                            submission.lname,
+                            submission.dob,
+                            submission.email])
+
+        with open("peopleList.csv", "wb") as f:
+            writer = csv.writer(f)
+            writer.writerows(results)
+
+    def gui_add_person(self):
+        csv_data = csv.reader(file("temp.csv"))
+        for row in csv_data:
+            sql = "INSERT INTO people (firstname, lastname, dob, emails, telNumbers) VALUES ('%s', '%s', '%s', " \
+                  "'%s', '%s')" % (
+                      row[1], row[2], row[3], row[4], row[5])
+            self.run_query(sql)
+
+        os.remove("temp.csv")
+        self.gui_view_people()
 
     def gui_del_person(self, person_id):
         pass
@@ -143,5 +166,7 @@ class Ctrla:
     def gui_edit_person(self, person_id, edit_id, edit):
         pass
 
-    def gui_view_people(self):
-        pass
+
+if __name__ == "__main__":
+    if sys.argv[1] == "add":
+        Ctrla().gui_add_person()

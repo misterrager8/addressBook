@@ -228,20 +228,30 @@ class Mainwindow(JFrame):
         tel_number = self.nums_field.getText()
 
         x = Person(None, f_name, l_name, dob, email, tel_number)
-        subprocess.call("python ctrla.py add", shell=True)
+
+        with open("temp.csv", "wb") as f:
+            writer = csv.writer(f)
+            writer.writerow([x.fname,
+                             x.lname,
+                             x.dob,
+                             x.email,
+                             x.number])
+
+        subprocess.call("python Ctrla.py add", shell=True)
+        self.view_table()
 
     def delButtonMouseClicked(self, evt):
         pass
 
     def view_table(self):
-        with open("albumsList.csv", "r") as f:
+        with open("peopleList.csv", "r") as f:
             reader = csv.reader(f)
             temp_list = list(reader)
 
         del person_list[:]
 
         for item in temp_list:
-            person_list.append(Person(item[0], item[1], item[2], item[3], item[4], item[5], item[6]))
+            person_list.append(Person(item[0], item[1], item[2], item[3], item[4], item[5]))
 
         self.people_table.getModel().setRowCount(0)
 
