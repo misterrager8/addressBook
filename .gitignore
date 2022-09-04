@@ -1,0 +1,5 @@
+.env
+.sh
+*.pyc
+addressBook.egg-info/
+.DS_Store
